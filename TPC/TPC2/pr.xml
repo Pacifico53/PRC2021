@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "pr.dtd">
+<pr>
+    <meta>
+        <key>PRC_TPC2</key>
+        <title>Ontologia de um arquivo musical</title>
+        <subtitle>TPC2 sobre uma ontologia de uma arquivo musical</subtitle>
+        <bdate>01-03-2021</bdate>
+        <edate>08-03-2021</edate>
+        <supervisor>José Carlos Ramalho</supervisor>
+    </meta>
+    <workteam>
+        <worker num="A74618">
+            <name>Bernardo Viseu</name>
+            <email>a74618@alunos.uminho.pt</email>
+        </worker>
+    </workteam>
+    <abstract>
+        <p>O TPC 2 da UC de PRC consistiu em realizar, no <b>Protégé</b> uma ontologia relativa a um arquivo musical.</p>
+        <p>Foi também utilizado o <b>Oxygen</b> para converter o dataset de XML para TTL.</p>
+    </abstract>
+    <deliverables>
+        <ref href="https://github.com/Pacifico53/PRC2021">Repositório de PRI</ref>
+    </deliverables>
+</pr>

@@ -1,0 +1,286 @@
+@prefix : <http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7> .
+
+<http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#atuou
+:atuou rdf:type owl:ObjectProperty ;
+       rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#compos
+:compos rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf owl:topObjectProperty ;
+        owl:inverseOf :foiComposta .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#escreveu
+:escreveu rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty ;
+          owl:inverseOf :foiEscrita .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#foiComposta
+:foiComposta rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#foiEscrita
+:foiEscrita rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#realizou
+:realizou rdf:type owl:ObjectProperty ;
+          rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#temArgumento
+:temArgumento rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#temAtor
+:temAtor rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf owl:topObjectProperty ;
+         rdf:type owl:InverseFunctionalProperty .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#temGenero
+:temGenero rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#temPaisOrigem
+:temPaisOrigem rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#temPecaMusical
+:temPecaMusical rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf owl:topObjectProperty .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#temRealizador
+:temRealizador rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf owl:topObjectProperty .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#sexo
+:sexo rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#temData
+:temData rdf:type owl:DatatypeProperty ;
+         rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#temDuração
+:temDuração rdf:type owl:DatatypeProperty ;
+            rdfs:subPropertyOf owl:topDataProperty .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#temTitulo
+:temTitulo rdf:type owl:DatatypeProperty ;
+           rdfs:subPropertyOf owl:topDataProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Argumento
+:Argumento rdf:type owl:Class ;
+           rdfs:subClassOf :Obra .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Ator
+:Ator rdf:type owl:Class ;
+      owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                 [ rdf:type owl:Restriction ;
+                                                   owl:onProperty :atuou ;
+                                                   owl:someValuesFrom :Filme
+                                                 ]
+                                               ) ;
+                            rdf:type owl:Class
+                          ] .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#AtoresMasculinos
+:AtoresMasculinos rdf:type owl:Class ;
+                  owl:equivalentClass [ owl:intersectionOf ( :Ator
+                                                             [ rdf:type owl:Restriction ;
+                                                               owl:onProperty :sexo ;
+                                                               owl:hasValue "m"
+                                                             ]
+                                                           ) ;
+                                        rdf:type owl:Class
+                                      ] .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#AtrizFeminina
+:AtrizFeminina rdf:type owl:Class ;
+               owl:equivalentClass [ owl:intersectionOf ( :Ator
+                                                          [ rdf:type owl:Restriction ;
+                                                            owl:onProperty :sexo ;
+                                                            owl:hasValue "f"
+                                                          ]
+                                                        ) ;
+                                     rdf:type owl:Class
+                                   ] .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Escritor
+:Escritor rdf:type owl:Class ;
+          owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                     [ rdf:type owl:Restriction ;
+                                                       owl:onProperty :escreveu ;
+                                                       owl:someValuesFrom [ rdf:type owl:Class ;
+                                                                            owl:unionOf ( :Argumento
+                                                                                          :Livro
+                                                                                        )
+                                                                          ]
+                                                     ]
+                                                   ) ;
+                                rdf:type owl:Class
+                              ] .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Filme
+:Filme rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Género
+:Género rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Lingua
+:Lingua rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Livro
+:Livro rdf:type owl:Class ;
+       rdfs:subClassOf :Obra .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Músico
+:Músico rdf:type owl:Class ;
+        owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                   [ rdf:type owl:Restriction ;
+                                                     owl:onProperty :compos ;
+                                                     owl:someValuesFrom :PeçaMusical
+                                                   ]
+                                                 ) ;
+                              rdf:type owl:Class
+                            ] .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Obra
+:Obra rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Pessoa
+:Pessoa rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#PeçaMusical
+:PeçaMusical rdf:type owl:Class ;
+             rdfs:subClassOf :Obra .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Realizador
+:Realizador rdf:type owl:Class ;
+            owl:equivalentClass [ owl:intersectionOf ( :Pessoa
+                                                       [ rdf:type owl:Restriction ;
+                                                         owl:onProperty :realizou ;
+                                                         owl:someValuesFrom :Filme
+                                                       ]
+                                                     ) ;
+                                  rdf:type owl:Class
+                                ] .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#ArgumentoTwilight
+:ArgumentoTwilight rdf:type owl:NamedIndividual ,
+                            :Argumento .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Billy_Burke
+:Billy_Burke rdf:type owl:NamedIndividual ,
+                      :Pessoa ;
+             :atuou :Twilight ;
+             :sexo "m" .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Catherine_Hardwicke
+:Catherine_Hardwicke rdf:type owl:NamedIndividual ,
+                              :Pessoa ;
+                     :realizou :Twilight ;
+                     :sexo "f" .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Ingles
+:Ingles rdf:type owl:NamedIndividual ,
+                 :Lingua .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Kristen_Stewart
+:Kristen_Stewart rdf:type owl:NamedIndividual ,
+                          :Pessoa ;
+                 :atuou :Twilight ;
+                 :sexo "f" .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Melissa_Rosenberg
+:Melissa_Rosenberg rdf:type owl:NamedIndividual ,
+                            :Pessoa ;
+                   :escreveu :ArgumentoTwilight ;
+                   :sexo "f" .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Portugues
+:Portugues rdf:type owl:NamedIndividual ,
+                    :Lingua .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Robert_Pattinson
+:Robert_Pattinson rdf:type owl:NamedIndividual ,
+                           :Pessoa ;
+                  :atuou :Twilight ;
+                  :sexo "m" .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Taylor_Lautner
+:Taylor_Lautner rdf:type owl:NamedIndividual ,
+                         :Pessoa ;
+                :atuou :Twilight ;
+                :sexo "f" .
+
+
+###  http://www.semanticweb.org/pacifico/ontologies/2021/2/untitled-ontology-7#Twilight
+:Twilight rdf:type owl:NamedIndividual ,
+                   :Filme ;
+          :temData "2008-12-19" ;
+          :temDuração 122 ;
+          :temTitulo "Twilight" .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi

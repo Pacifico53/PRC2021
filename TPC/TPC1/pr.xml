@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pr SYSTEM "pr.dtd">
+<pr>
+    <meta>
+        <key>PRC_TPC1</key>
+        <title>Gerar dataset em TTL</title>
+        <subtitle>TPC1 sobre um dataset TTL</subtitle>
+        <bdate>22-02-2021</bdate>
+        <edate>01-03-2021</edate>
+        <supervisor>José Carlos Ramalho</supervisor>
+    </meta>
+    <workteam>
+        <worker num="A74618">
+            <name>Bernardo Viseu</name>
+            <email>a74618@alunos.uminho.pt</email>
+        </worker>
+    </workteam>
+    <abstract>
+        <p>Para este TPC, utilizei um script em <b>Ruby</b> para converter um dataset XML para TTL.</p>
+        <p>Depois disto, os dados foram utilizados na ontologia realizada na aula, e aplicou-se o Reasoner para obter a ontologia com os axiomas inferidos.</p>
+    </abstract>
+    <deliverables>
+        <ref href="https://github.com/Pacifico53/PRC2021">Repositório de PRI</ref>
+    </deliverables>
+</pr>
