@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  .w3-container
+    .w3-card-4
+      header.w3-container.w3-khaki.w3-margin-top
+        h3 Lista de Grupos
+
+        .grid-container
+            div(class="grid-container")
+                each g in lista
+                    div(class="grid-item")  
+                        a(href="/grupo/"+g) #{g}
