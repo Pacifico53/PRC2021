@@ -1,0 +1,16 @@
+PREFIX : <http://prc.di.uminho.pt/2021/mapa-virtual#>
+select ?dist (count (?s) as ?cidades)
+insert data {
+    :c101 rdf:type owl:NamedIndividual , :Cidade ;
+    :descri
+}
+
+insert data {
+    :c101 :população 40000
+}
+
+CONSTRUCT {
+    ?c1 :temLigação ?c1 .
+} WHERE {
+    ?l 
+}

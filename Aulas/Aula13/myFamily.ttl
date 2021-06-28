@@ -1,0 +1,468 @@
+@prefix : <http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/mariana6/ontologies/2021/4/familia> .
+
+<http://www.semanticweb.org/mariana6/ontologies/2021/4/familia> rdf:type owl:Ontology ;
+                                                                 rdfs:comment "Ontologia de uma familia" .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#temAvoF
+:temAvoF rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :temProgenitorGrau2 ;
+         owl:propertyChainAxiom ( :temProgenitor
+                                  :temMae
+                                ) .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#temAvoM
+:temAvoM rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :temProgenitorGrau2 ;
+         owl:propertyChainAxiom ( :temProgenitor
+                                  :temPai
+                                ) .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#temMae
+:temMae rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :temProgenitor ,
+                           [ owl:inverseOf :éProgenitorDe
+                           ] ;
+        owl:inverseOf :éMaeDe ;
+        rdfs:domain :Pessoa ;
+        rdfs:range :Mulher .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#temPai
+:temPai rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :temProgenitor ,
+                           [ owl:inverseOf :éProgenitorDe
+                           ] ;
+        owl:inverseOf :éPaiDe ;
+        rdfs:domain :Pessoa ;
+        rdfs:range :Homem .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#temProgenitor
+:temProgenitor rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#temProgenitorGrau2
+:temProgenitorGrau2 rdf:type owl:ObjectProperty .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#temSexo
+:temSexo rdf:type owl:ObjectProperty ,
+                  owl:FunctionalProperty ;
+         rdfs:domain :Pessoa ;
+         rdfs:range :Sexo .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#éMaeDe
+:éMaeDe rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :éProgenitorDe ,
+                           [ owl:inverseOf :temProgenitor
+                           ] .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#éPaiDe
+:éPaiDe rdf:type owl:ObjectProperty ;
+        rdfs:subPropertyOf :éProgenitorDe ,
+                           [ owl:inverseOf :temProgenitor
+                           ] .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#éProgenitorDe
+:éProgenitorDe rdf:type owl:ObjectProperty .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Antepassado
+:Antepassado rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#AntepassadoFeminino
+:AntepassadoFeminino rdf:type owl:Class ;
+                     rdfs:subClassOf :Antepassado .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#AntepassadoMasculino
+:AntepassadoMasculino rdf:type owl:Class ;
+                      rdfs:subClassOf :Antepassado .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#DomínioFamiliar
+:DomínioFamiliar rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Feminino
+:Feminino rdf:type owl:Class ;
+          rdfs:subClassOf :Sexo ;
+          owl:disjointWith :Masculino .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Homem
+:Homem rdf:type owl:Class ;
+       rdfs:subClassOf :Pessoa ,
+                       [ rdf:type owl:Restriction ;
+                         owl:onProperty :temSexo ;
+                         owl:someValuesFrom :Masculino
+                       ] .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Masculino
+:Masculino rdf:type owl:Class ;
+           rdfs:subClassOf :Sexo .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Mulher
+:Mulher rdf:type owl:Class ;
+        rdfs:subClassOf :Pessoa ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :temSexo ;
+                          owl:someValuesFrom :Feminino
+                        ] .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Pessoa
+:Pessoa rdf:type owl:Class ;
+        rdfs:subClassOf :DomínioFamiliar ,
+                        [ rdf:type owl:Class ;
+                          owl:unionOf ( :Homem
+                                        :Mulher
+                                      )
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :temSexo ;
+                          owl:someValuesFrom :Pessoa
+                        ] ;
+        owl:disjointWith :Sexo .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Sexo
+:Sexo rdf:type owl:Class ;
+      rdfs:subClassOf :DomínioFamiliar .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Abílio_da_Silva_Ramalho
+:Abílio_da_Silva_Ramalho rdf:type owl:NamedIndividual ;
+                         :temMae :Custódia_Azevedo_1867 ;
+                         :temPai :Manuel_da_Silva_Ramalho_1866 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Albina_Esteves_de_Araújo_1910
+:Albina_Esteves_de_Araújo_1910 rdf:type owl:NamedIndividual ;
+                               :temMae :Maria_Araújo_1884 ;
+                               :temPai :Henrique_Luiz_de_Araújo_1867 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Ana_Margarida_Ribeiro_Leite_1980
+:Ana_Margarida_Ribeiro_Leite_1980 rdf:type owl:NamedIndividual ;
+                                  :temMae :Maria_Margarida_Ribeiro_1954 ;
+                                  :temPai :Rui_Alberto_Araújo_Leite_1948 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Ana_da_Silva_Ramalho
+:Ana_da_Silva_Ramalho rdf:type owl:NamedIndividual ;
+                      :temMae :Custódia_Azevedo_1867 ;
+                      :temPai :Manuel_da_Silva_Ramalho_1866 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#António_da_Silva_Ramalho
+:António_da_Silva_Ramalho rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#António_da_Silva_Ramalho_1904
+:António_da_Silva_Ramalho_1904 rdf:type owl:NamedIndividual ;
+                               :temMae :Custódia_Azevedo_1867 ;
+                               :temPai :Manuel_da_Silva_Ramalho_1866 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Arminda_da_Silva_Ramalho
+:Arminda_da_Silva_Ramalho rdf:type owl:NamedIndividual ;
+                          :temMae :Custódia_Azevedo_1867 ;
+                          :temPai :Manuel_da_Silva_Ramalho_1866 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Christina_Rosa_Silva_Santos_1879
+:Christina_Rosa_Silva_Santos_1879 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Custódia_Azevedo_1867
+:Custódia_Azevedo_1867 rdf:type owl:NamedIndividual ;
+                       :temMae :Maria_Gonçalves_de_Azevedo ;
+                       :temPai :José_Francisco_Ramos_Mouco .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Domingos_Couto_Leite
+:Domingos_Couto_Leite rdf:type owl:NamedIndividual ;
+                      :temMae :Flora_Castilho_do_Couto_Leite ;
+                      :temPai :Marçal_da_Costa_Leite .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Emília_Esteves
+:Emília_Esteves rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Emília_Esteves_de_Araújo_1908
+:Emília_Esteves_de_Araújo_1908 rdf:type owl:NamedIndividual ;
+                               :temMae :Maria_Araújo_1884 ;
+                               :temPai :Henrique_Luiz_de_Araújo_1867 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Ezequiel_da_Silva_Ramalho
+:Ezequiel_da_Silva_Ramalho rdf:type owl:NamedIndividual ;
+                           :temMae :Custódia_Azevedo_1867 ;
+                           :temPai :Manuel_da_Silva_Ramalho_1866 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Filomena_Esteves_de_Araújo_1927
+:Filomena_Esteves_de_Araújo_1927 rdf:type owl:NamedIndividual ;
+                                 :temMae :Maria_Araújo_1884 ;
+                                 :temPai :Henrique_Luiz_de_Araújo_1867 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Flora_Castilho_do_Couto_Leite
+:Flora_Castilho_do_Couto_Leite rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Florinda_Alves_dos_Santos
+:Florinda_Alves_dos_Santos rdf:type owl:NamedIndividual ;
+                           :temMae :Christina_Rosa_Silva_Santos_1879 ;
+                           :temPai :Jozé_da_Silva_Santos_1879 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Generosa_da_Silva_Ramalho
+:Generosa_da_Silva_Ramalho rdf:type owl:NamedIndividual ;
+                           :temMae :Custódia_Azevedo_1867 ;
+                           :temPai :Manuel_da_Silva_Ramalho_1866 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Gilberto_Couto_Leite
+:Gilberto_Couto_Leite rdf:type owl:NamedIndividual ;
+                      :temMae :Flora_Castilho_do_Couto_Leite ;
+                      :temPai :Marçal_da_Costa_Leite .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Helena_Couto_Leite
+:Helena_Couto_Leite rdf:type owl:NamedIndividual ;
+                    :temMae :Flora_Castilho_do_Couto_Leite ;
+                    :temPai :Marçal_da_Costa_Leite .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Henrique_Luiz_de_Araújo_1867
+:Henrique_Luiz_de_Araújo_1867 rdf:type owl:NamedIndividual ;
+                              :temMae :Maria_das_Dores_Fernandes_de_Brito ;
+                              :temPai :José_Emílio_de_Araújo .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Henrique_Luís_Esteves_de_Araújo_1924
+:Henrique_Luís_Esteves_de_Araújo_1924 rdf:type owl:NamedIndividual ;
+                                      :temMae :Maria_Araújo_1884 ;
+                                      :temPai :Henrique_Luiz_de_Araújo_1867 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Henrique_Marçal_Araújo_Leite_1943
+:Henrique_Marçal_Araújo_Leite_1943 rdf:type owl:NamedIndividual ;
+                                   :temMae :Maria_Esteves_de_Araújo_1912 ;
+                                   :temPai :Marçal_Aristides_Costa_Leite_1909 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Henrique_Miguel_Cabrita_de_Araújo_Leite_1971
+:Henrique_Miguel_Cabrita_de_Araújo_Leite_1971 rdf:type owl:NamedIndividual ;
+                                              :temMae :Maria_Otília_Araújo_Leite_1944 ;
+                                              :temPai :Henrique_Marçal_Araújo_Leite_1943 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Ilda_dos_Santos_Ramalho_1949
+:Ilda_dos_Santos_Ramalho_1949 rdf:type owl:NamedIndividual ;
+                              :temMae :Maria_Alves_dos_Santos_1906 ;
+                              :temPai :António_da_Silva_Ramalho_1904 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Isabel_Maria_Cabrita_de_Araújo_Leite_1971
+:Isabel_Maria_Cabrita_de_Araújo_Leite_1971 rdf:type owl:NamedIndividual ;
+                                           :temMae :Maria_Otília_Araújo_Leite_1944 ;
+                                           :temPai :Henrique_Marçal_Araújo_Leite_1943 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#José_Carlos_Leite_Ramalho_1967
+:José_Carlos_Leite_Ramalho_1967 rdf:type owl:NamedIndividual ;
+                                :temMae :Maria_Flora_Araújo_Leite_1941 ;
+                                :temPai :José_dos_Santos_Ramalho_1942 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#José_Emílio_Esteves_de_Araújo_1916
+:José_Emílio_Esteves_de_Araújo_1916 rdf:type owl:NamedIndividual ;
+                                    :temMae :Maria_Araújo_1884 ;
+                                    :temPai :Henrique_Luiz_de_Araújo_1867 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#José_Emílio_de_Araújo
+:José_Emílio_de_Araújo rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#José_Francisco_Ramos_Mouco
+:José_Francisco_Ramos_Mouco rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#José_Maria_Esteves
+:José_Maria_Esteves rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#José_dos_Santos_Ramalho_1942
+:José_dos_Santos_Ramalho_1942 rdf:type owl:NamedIndividual ;
+                              :temMae :Maria_Alves_dos_Santos_1906 ;
+                              :temPai :António_da_Silva_Ramalho_1904 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Jozé_da_Silva_Santos_1879
+:Jozé_da_Silva_Santos_1879 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#João_Bernardo_Couto_Leite_1916
+:João_Bernardo_Couto_Leite_1916 rdf:type owl:NamedIndividual ;
+                                :temMae :Flora_Castilho_do_Couto_Leite ;
+                                :temPai :Marçal_da_Costa_Leite .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Luís_Esteves_de_Araújo_1918
+:Luís_Esteves_de_Araújo_1918 rdf:type owl:NamedIndividual ;
+                             :temMae :Maria_Araújo_1884 ;
+                             :temPai :Henrique_Luiz_de_Araújo_1867 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Manuel_Carlos_dos_Santos_Ramalho
+:Manuel_Carlos_dos_Santos_Ramalho rdf:type owl:NamedIndividual ;
+                                  :temMae :Maria_Alves_dos_Santos_1906 ;
+                                  :temPai :António_da_Silva_Ramalho_1904 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Manuel_Fernando_dos_Santos_Ramalho
+:Manuel_Fernando_dos_Santos_Ramalho rdf:type owl:NamedIndividual ;
+                                    :temMae :Maria_Alves_dos_Santos_1906 ;
+                                    :temPai :António_da_Silva_Ramalho_1904 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Manuel_da_Silva_Ramalho_1866
+:Manuel_da_Silva_Ramalho_1866 rdf:type owl:NamedIndividual ;
+                              :temMae :Maria_Dias_dos_Reis ;
+                              :temPai :António_da_Silva_Ramalho .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Maria_Alves_dos_Santos_1906
+:Maria_Alves_dos_Santos_1906 rdf:type owl:NamedIndividual ;
+                             :temMae :Christina_Rosa_Silva_Santos_1879 ;
+                             :temPai :Jozé_da_Silva_Santos_1879 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Maria_Araújo_1884
+:Maria_Araújo_1884 rdf:type owl:NamedIndividual ;
+                   :temMae :Emília_Esteves ;
+                   :temPai :José_Maria_Esteves .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Maria_Dias_dos_Reis
+:Maria_Dias_dos_Reis rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Maria_Esteves_de_Araújo_1912
+:Maria_Esteves_de_Araújo_1912 rdf:type owl:NamedIndividual ;
+                              :temMae :Maria_Araújo_1884 ;
+                              :temPai :Henrique_Luiz_de_Araújo_1867 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Maria_Flora_Araújo_Leite_1941
+:Maria_Flora_Araújo_Leite_1941 rdf:type owl:NamedIndividual ;
+                               :temMae :Maria_Esteves_de_Araújo_1912 ;
+                               :temPai :Marçal_Aristides_Costa_Leite_1909 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Maria_Flora_dos_Santos_Ramalho_
+:Maria_Flora_dos_Santos_Ramalho_ rdf:type owl:NamedIndividual ;
+                                 :temMae :Maria_Alves_dos_Santos_1906 ;
+                                 :temPai :António_da_Silva_Ramalho_1904 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Maria_Gonçalves_de_Azevedo
+:Maria_Gonçalves_de_Azevedo rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Maria_Helena_Leite_Ramalho_1968
+:Maria_Helena_Leite_Ramalho_1968 rdf:type owl:NamedIndividual ;
+                                 :temMae :Maria_Flora_Araújo_Leite_1941 ;
+                                 :temPai :José_dos_Santos_Ramalho_1942 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Maria_Margarida_Ribeiro_1954
+:Maria_Margarida_Ribeiro_1954 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Maria_Otília_Araújo_Leite_1944
+:Maria_Otília_Araújo_Leite_1944 rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Maria_das_Dores_Fernandes_de_Brito
+:Maria_das_Dores_Fernandes_de_Brito rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Marçal_Aristides_Costa_Leite_1909
+:Marçal_Aristides_Costa_Leite_1909 rdf:type owl:NamedIndividual ;
+                                   :temMae :Flora_Castilho_do_Couto_Leite ;
+                                   :temPai :Marçal_da_Costa_Leite .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Marçal_da_Costa_Leite
+:Marçal_da_Costa_Leite rdf:type owl:NamedIndividual .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Orlando_Couto_Leite
+:Orlando_Couto_Leite rdf:type owl:NamedIndividual ;
+                     :temMae :Flora_Castilho_do_Couto_Leite ;
+                     :temPai :Marçal_da_Costa_Leite .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Rosa_Couto_Leite
+:Rosa_Couto_Leite rdf:type owl:NamedIndividual ;
+                  :temMae :Flora_Castilho_do_Couto_Leite ;
+                  :temPai :Marçal_da_Costa_Leite .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Rui_Alberto_Araújo_Leite_1948
+:Rui_Alberto_Araújo_Leite_1948 rdf:type owl:NamedIndividual ;
+                               :temMae :Maria_Esteves_de_Araújo_1912 ;
+                               :temPai :Marçal_Aristides_Costa_Leite_1909 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Sara_Esteves_de_Araújo_1914
+:Sara_Esteves_de_Araújo_1914 rdf:type owl:NamedIndividual ;
+                             :temMae :Maria_Araújo_1884 ;
+                             :temPai :Henrique_Luiz_de_Araújo_1867 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Teresa_Maria_Ribeiro_Leite_1985
+:Teresa_Maria_Ribeiro_Leite_1985 rdf:type owl:NamedIndividual ;
+                                 :temMae :Maria_Margarida_Ribeiro_1954 ;
+                                 :temPai :Rui_Alberto_Araújo_Leite_1948 .
+
+
+###  http://www.semanticweb.org/mariana6/ontologies/2021/4/familia#Virgínia_Esteves_de_Araújo_1921
+:Virgínia_Esteves_de_Araújo_1921 rdf:type owl:NamedIndividual ;
+                                 :temMae :Maria_Araújo_1884 ;
+                                 :temPai :Henrique_Luiz_de_Araújo_1867 .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
