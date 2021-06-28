@@ -1,0 +1,73 @@
+==============QUERY 1: TRIPLOS RELACAO TIO
+
+CONSTRUCT {
+    ?a :Tio ?b.
+} 
+WHERE {
+    ?x :temProgenitor ?p1 .
+    ?y :temProgenitor ?p1 . 
+
+    ?a :temProgenitor ?x .
+    ?b :temProgenitor ?y .
+
+    
+    FILTER(?x != ?y)
+}
+
+==============QUERY 2: TRIPLOS RELACAO Trisavo
+
+CONSTRUCT {
+      ?a :Trisavo ?b .
+} 
+WHERE {
+    ?a :ePaide ?p1 .
+    ?p1 :eProgenitorDe ?p2 .
+    ?p2 :eProgenitorDe ?p3 .
+    ?p3 :eProgenitorDe ?b .
+}
+
+==============QUERY 3: TRIPLOS RELACAO Ascendentes
+
+CONSTRUCT {
+      ?a :Ascendentes ?b .
+} WHERE {
+    ?a :eProgenitorDe+ ?b .
+}
+
+==============QUERY 4: TRIPLOS RELACAO MeioIrmao
+
+CONSTRUCT {
+      ?a :MeioIrmao ?b .
+} WHERE {
+    ?a :temProgenitor ?p1 .
+    ?b :temProgenitor ?p1 .
+
+    ?a :temProgenitor ?p2 .
+    ?b :temProgenitor ?p3 .
+
+    FILTER (?a != ?b) .
+    FILTER (?p1 != ?p2) .
+    FILTER (?p2 != ?p3 ) .
+}
+
+
+=====Acresecentar Atributo Sexo
+Criar nova classe Sexo, com object property :temSexo
+Queries para cada sexo:
+
+---Masculino:
+
+CONSTRUCT {
+    ?a :temSexo :M.
+}
+WHERE {
+    ?x :temPai ?a .
+}
+
+---Feminino:
+CONSTRUCT {
+    ?a :temSexo :F.
+}
+WHERE {
+    ?x :temMae ?a .
+}
