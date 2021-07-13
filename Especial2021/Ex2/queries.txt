@@ -1,0 +1,32 @@
+######### LISTA DE CIDADES ORDENADA POR NOME
+PREFIX a:<http://www.di.uminho.pt/prc2021/Mapa#>
+
+SELECT ?nome WHERE { 
+    ?c a a:Cidade .
+    ?c a:nome ?nome .
+}
+
+order by ?nome
+
+######### DISTRIBUICAO DE CIDADES POR DISTRITO
+PREFIX a:<http://www.di.uminho.pt/prc2021/Mapa#>
+
+SELECT ?di (count(distinct ?ci) as ?numCidades) WHERE { 
+    ?ci a a:Cidade .
+    ?ci a:doDistrito ?di .
+    ?di a:nome ?nome .
+}
+
+group by ?di
+order by ?nome
+
+######### CIDADES LIGADAS A BRAGA
+SELECT ?nome WHERE { 
+    ?li a a:Ligacao .
+    ?ci a a:Cidade .
+    ?ci a:doDistrito 'Braga' .
+    ?li a:temOrigem ?ci .
+    ?ci a:nome ?nome
+}
+
+order by ?nome

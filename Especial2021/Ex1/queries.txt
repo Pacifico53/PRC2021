@@ -1,0 +1,65 @@
+############################## NUMERO ALUNOS
+
+PREFIX a:<http://www.di.uminho.pt/prc2021/Avaliacao#>
+
+SELECT (count(distinct ?aluno) as ?numAlunos) WHERE { 
+	?aluno a a:Aluno .
+}
+
+RESULTADO: 299
+
+############################ NUMERO ALUNOS DE CURSO 'LCC'
+
+PREFIX a:<http://www.di.uminho.pt/prc2021/Avaliacao#>
+
+SELECT (count(distinct ?aluno) as ?numAlunos) WHERE { 
+	?aluno a a:Aluno .
+    ?aluno a:curso 'LCC'.
+}
+
+RESULTADO: 44
+
+############################ NUMERO ALUNOS NOTA POSITIVA EM EPOCA NORMAL (ORDENADA POR NOME)
+
+PREFIX a:<http://www.di.uminho.pt/prc2021/Avaliacao#>
+
+SELECT ?id ?nome ?curso ?nota WHERE { 
+    ?al a a:Aluno .
+    ?al a:fezExame ?ex .
+    ?ex a:tipoExame "normal" .
+    ?ex a:nota ?nota .
+    ?al a:idAluno ?id .
+    ?al a:nome ?nome .
+    ?al a:curso ?curso .
+
+    FILTER(?nota > 9.5)
+}
+
+group by ?nome ?id ?curso ?nota
+order by ?nome
+
+############################ DISTRIBUICAO DOS ALUNOS PALAS NOTAS DO PROJETO
+
+PREFIX a:<http://www.di.uminho.pt/prc2021/Avaliacao#>
+
+SELECT ?nota (count(distinct ?al) as ?numAlunos) WHERE { 
+    ?al a a:Aluno .
+    ?al a:fezProjeto ?proj .
+    ?proj a:nota ?nota .
+}
+
+group by ?nota
+order by ?nota
+
+############################ ALUNOS MAIS TRABALHADORES
+
+############################ DISTRIBUICAO DOS ALUNOS PELOS CURSOS (ORDENADA POR CURSO)
+
+PREFIX a:<http://www.di.uminho.pt/prc2021/Avaliacao#>
+
+SELECT ?curso (count(distinct ?al) as ?numAlunos) WHERE { 
+    ?al a a:Aluno .
+    ?al a:curso ?curso .
+}
+group by ?curso
+order by ?curso
